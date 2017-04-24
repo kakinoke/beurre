@@ -1,0 +1,442 @@
+#!/bin/bash
+
+##### VARIABLES #####
+if [ -z $BEURREPATH ]; then
+	BEURREPATH=~/.beurre; export BEURREPATH
+fi
+
+BEURRE_REMOTE="https://github.com/kakinoke/beurre.git"; export BEURRE_REMOTE
+
+##### VARIABLES END #####
+
+
+##### FUNCTIONS #####
+
+e_header() {
+	printf " \033[37;1m%s\033[m\n" "$*"
+}
+
+e_error() {
+	printf " \033[31m%s\033[m\n" "✖ $*" 1>&2
+}
+
+e_warning() {
+	printf " \033[31m%s\033[m\n" "$*"
+}
+
+e_done() {
+	printf " \033[37;1m%s\033[m...\033[32mOK\033[m\n" "✔ $*"
+}
+
+e_arrow() {
+	printf " \033[37;1m%s\033[m\n" "➜ $*"
+}
+
+e_indent() {
+	for ((i=0; i<${1:-4}; i++)); do
+		echon " "
+	done
+	if [ -n "$2" ]; then
+		echo "$2"
+	else
+		cat <&0
+	fi
+}
+
+e_success() {
+	printf " \033[37;1m%s\033[m%s...\033[32mOK\033[m\n" "✔ " "$*"
+}
+
+e_failure() {
+	die "${1:-$FUNCNAME}"
+}
+
+ink() {
+	if [ "$#" -eq 0 -o "$#" -gt 2 ]; then
+		echo "Usage: ink <color> <text>"
+		echo "Colors:"
+		echo "  black, white, red, green, yellow, blue, purple, cyan, gray"
+		return 1
+	fi
+
+	local open="\033["
+	local close="${open}0m"
+	local black="0;30m"
+	local red="1;31m"
+	local green="1;32m"
+	local yellow="1;33m"
+	local blue="1;34m"
+	local purple="1;35m"
+	local cyan="1;36m"
+	local gray="0;37m"
+	local white="$close"
+
+	local text="$1"
+	local color="$close"
+
+	if [ "$#" -eq 2 ]; then
+		text="$2"
+		case "$1" in
+			black | red | green | yellow | blue | purple | cyan | gray | white)
+				eval color="\$$1"
+				;;
+		esac
+	fi
+
+	printf "${open}${color}${text}${close}"
+}
+
+logging() {
+	if [ "$#" -eq 0 -o "$#" -gt 2 ]; then
+		echo "Usage: ink <fmt> <msg>"
+		echo "Formatting Options:"
+		echo "  TITLE, ERROR, WARN, INFO, SUCCESS"
+		return 1
+	fi
+
+	local color=
+	local text="$2"
+
+	case "$1" in
+		TITLE)
+			color=yellow
+			;;
+		ERROR | WARN)
+			color=red
+			;;
+		INFO)
+			color=blue
+			;;
+		SUCCESS)
+			color=green
+			;;
+		*)
+			text="$1"
+	esac
+
+	timestamp() {
+		ink gray "["
+		ink purple "$(date +%H:%M:%S)"
+		ink gray "] "
+	}
+
+	timestamp; ink "$color" "$text"; echo
+}
+
+log_pass() {
+	logging SUCCESS "$1"
+}
+
+log_fail() {
+	logging ERROR "$1" 1>&2
+}
+
+log_fail() {
+	logging WARN "$1"
+}
+
+log_info() {
+	logging INFO "$1"
+}
+
+log_echo() {
+	logging TITLE "$1"
+}
+
+
+# Title
+print_header() {
+
+	logo="
+'########::'########:'##::::'##:'########::'########::'########:
+ ##.... ##: ##.....:: ##:::: ##: ##.... ##: ##.... ##: ##.....::
+ ##:::: ##: ##::::::: ##:::: ##: ##:::: ##: ##:::: ##: ##:::::::
+ ########:: ######::: ##:::: ##: ########:: ########:: ######:::
+ ##.... ##: ##...:::: ##:::: ##: ##.. ##::: ##.. ##::: ##...::::
+ ##:::: ##: ##::::::: ##:::: ##: ##::. ##:: ##::. ##:: ##:::::::
+ ########:: ########:. #######:: ##:::. ##: ##:::. ##: ########:
+........:::........:::.......:::..:::::..::..:::::..::........::
+	"
+
+
+	detail='
+	See the README for documentation.
+	https://github.com/kakinoke/beurre.git
+	Copyright (c) 2016 kakinoke.
+	Licensed under the MIT license.
+	'
+	echo "$logo"
+	echo "$detail"
+	echo
+}
+
+# Footer
+print_footer() {
+	e_header "Enjoy beurre system"
+}
+
+
+# check repo
+system_check_update() {
+
+	e_header "Checking update..."
+	echo
+
+	cd "$BEURREPATH"
+
+	locallog=`git log | grep commit | awk 'NR==1'`
+	localcommit=`echo $locallog | sed -e 's/commit //'`
+
+	e_arrow "Local:" $localcommit
+
+	remotecommit=`git ls-remote origin master | cut -c 1-40`
+
+	e_arrow "Remote:" $remotecommit
+	echo
+
+
+	if [ ${localcommit} = ${remotecommit} ]; then
+		e_done "beurre system is up to date."
+		echo
+	else
+		echo " Your beurre system is out of date. Please update."
+		e_warning "beurre pull"
+		echo
+	fi
+
+}
+
+
+# check exist
+check_system_exist() {
+
+	if [ ! -e "$BEURREPATH" ]; then
+		system_init
+	else
+		cd "$BEURREPATH"
+		check_args $1
+	fi
+}
+
+
+# args
+check_args() {
+	if [ $# -ne 1 ]; then
+		e_error "ERROR - Need a option"
+		e_arrow "beurre link"
+		e_arrow "beurre update"
+		e_arrow "beurre pull"
+		e_arrow "beurre check"
+		e_arrow "beurre dump"
+		e_arrow "beurre remove"
+		echo
+		e_header "exit"
+		echo
+		exit 1
+	fi
+
+	case "$1" in
+		"link" )
+			system_link ;;
+		"update" )
+			system_update ;;
+		"pull" )
+			system_pull ;;
+		"check" )
+			system_check_update ;;
+		"dump" )
+			dump ;;
+		"remove" )
+			system_remove ;;
+	esac
+}
+
+system_init() {
+	e_header "System init"
+
+
+	if [ `uname` = "Darwin" ]; then
+
+		echo
+		e_arrow "Install Xcode Command line tools"
+		sudo /usr/bin/xcode-select --install
+		sudo /usr/bin/xcode-select --switch /Library/Developer/CommandLineTools
+		echo
+		e_done "Success Xcode Comand line tools"
+		echo
+
+	fi
+
+	system_download
+
+	. $BEURREPATH/Darwin/bin/setup
+
+	if [ `uname` = "Darwin" ]; then
+
+		install_brew
+		install_cask
+
+	fi
+
+	install_zplug
+
+	system_link
+
+	print_footer
+
+	exec zsh
+
+	install_tools
+
+}
+
+system_download() {
+	echo
+	e_arrow "Downloading beurre"
+	echo
+	git clone --recursive "$BEURRE_REMOTE" "$BEURREPATH"
+	cd "$BEURREPATH"
+	git submodule init
+	git submodule update
+	echo
+	e_done "Success download"
+	echo
+
+}
+
+
+link_core() {
+	cd "$BEURREPATH"
+	for f in .??*
+	do
+		[ "$f" = ".git" ] && continue
+		[ "$f" = ".gitmodules" ] && continue
+		if [ ! -e "$HOME/$f" ]; then
+			ln -s "$BEURREPATH/$f" "$HOME/$f"
+			e_arrow "$f ...ok"
+		else
+			e_arrow "$f ...pass"
+		fi
+	done
+}
+
+link_os() {
+	cd "$BEURREPATH"/`uname`
+	for f in .??*
+	do
+		if [ ! -e "$HOME/$f" ]; then
+			ln -s "$BEURREPATH/`uname`/$f" "$HOME/$f"
+			e_arrow "$f ...ok"
+		else
+			e_arrow "$f ...pass"
+		fi
+	done
+}
+
+system_link() {
+	echo
+	e_header "System linking..."
+	link_core
+	link_os
+	echo
+	e_done "Success link"
+	echo
+}
+
+system_install() {
+	echo
+	e_header "System install"
+	echo
+	e_done "Success install"
+	echo
+}
+
+system_pull() {
+	echo
+	e_header "beurre pull"
+	echo
+	cd "$BEURREPATH"
+	git pull origin master
+	echo
+	e_done "Success beurre pull"
+	system_link
+	echo
+	e_arrow "brew-cask update?(Y/n)"
+	read ans
+	if [ $ans = "n" ]; then
+		echo
+		e_done "Pass"
+	else
+		echo
+		update_cask
+	fi
+	echo
+	e_header "System is up to date."
+	echo
+}
+
+
+system_remove() {
+	echo
+	e_header "System remove"
+	echo
+	e_warning "Are you sure?(y/n)"
+	read ans
+	if [ $ans = "y" ]; then
+		cd "$BEURREPATH"
+		for f in .??*
+		do
+			[ "$f" = ".git" ] && continue
+				rm -rfv "$HOME/$f"
+				e_arrow "$HOME/$f"
+		done
+		cd "$BEURREPATH"/`uname`
+		for f in .??*
+		do
+				rm -rfv "$HOME/$f"
+				e_arrow "$HOME/$f"
+		done
+		rm -rfv "$BEURREPATH"
+		echo
+		e_done "Success system removed"
+		echo
+		e_header "Bye!"
+		echo
+	else
+		echo
+		exit 1
+	fi
+}
+
+install_zplug() {
+	if [ ! -e ~/.zplug ]; then
+		echo
+		e_header "Install Zplug"
+		echo
+		curl -sL zplug.sh/installer | zsh
+		echo
+		e_done "Success install Zplug"
+		echo
+	else
+		e_arrow "zplug...pass"
+	fi
+}
+
+install_tools() {
+	if type node > /dev/null 2>&1; then
+
+		if !type instant-markdown-d > /dev/null 2>&1; then
+			npm install instant-markdown-d -g
+		fi
+
+	fi
+}
+
+##### FUNCTIONS END #####
+
+###### MAIN #####
+
+
+print_header
+
+check_system_exist $1

@@ -1,0 +1,79 @@
+#!/bin/bash
+
+xcode_cui_install() {
+	echo
+	e_arrow "Install Xcode Command line tools"
+	sudo /usr/bin/xcode-select --install
+	sudo /usr/bin/xcode-select --switch /Library/Developer/CommandLineTools
+	echo
+	e_done "Success Xcode Comand line tools"
+	echo
+}
+
+install_brew() {
+	if [ ! -e /usr/local/bin/brew ]; then
+		echo
+		e_header "Install Homebrew"
+		echo
+		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+		brew update
+		brew doctor
+		brew install git
+		brew tap caskroom/cask
+		brew tap caskroom/versions
+		brew tap Homebrew/bundle
+		echo
+		e_done "Success install Homebrew"
+		echo
+	else
+		e_arrow "Homebrew...pass"
+	fi
+}
+
+install_cask() {
+	e_header "Install apps"
+	echo
+	if [ -e $BEURREPATH ]; then
+		cd "$BEURREPATH"/Darwin/lib
+		export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/Caskroom"
+		brew bundle
+		echo
+		e_done "Success install apps"
+	else
+		e_error "beurre system is not exist"
+	fi
+	echo
+}
+
+update_brew() {
+	echo
+	e_header "brew update..."
+	brew update
+	brew upgrade
+	brew cleanup
+	brew cask cleanup
+	echo
+	e_done "Success update"
+	echo
+}
+
+update_cask() {
+	cd "$BEURREPATH"/Dawrin/lib
+	echo
+	e_header "Update apps"
+	brew bundle
+	echo
+	e_done "Success update apps"
+	echo
+}
+
+dump() {
+	cd "$BEURREPATH"/Darwin/lib
+	echo
+	e_header "brew dump"
+	echo
+	brew bundle dump
+	echo
+	e_done "Success dump"
+	echo
+}

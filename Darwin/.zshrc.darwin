@@ -1,0 +1,124 @@
+# **********************************************************
+#
+# Title: .zshrc.include
+# Author: Yu
+# Date: 2015.05.07
+# Description: Mac alias include file
+#
+# **********************************************************
+
+
+export PATH=~/.beurre/bin:$PATH
+
+
+############################################################
+#
+# HomeBrew
+#
+############################################################
+
+#brew
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:$PATH
+
+#brewcask
+export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/Caskroom"
+alias app="brew cask"
+
+#nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+
+############################################################
+#
+# Android
+#
+############################################################
+
+
+#Android alias
+alias androidbackup='adb backup -apk -shared -all'
+alias androidrestore='adb restore'
+
+
+############################################################
+#
+# Utility
+#
+############################################################
+
+#MacVim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#case ${OSTYPE} in
+#	darwin*) # Mac OS X
+#		function macvim () {
+#		if [ -d /Applications/MacVim.app ]
+#		then
+#			[ ! -f $1 ] && touch $1
+#			open -a MacVim $1
+#		else
+#			vim $1
+#		fi
+#	}
+#	alias vim='macvim'
+#	;;
+#esac
+
+#cdd
+#autoload -Uz compinit && compinit
+
+#zstyle ':completion:*' menu select
+#zstyle ':completion:*:descriptions' format '%BCompleting%b %U%d%u'
+
+#source $HOME/cdd
+
+typeset -ga chpwd_functions
+chpwd_functions+=_cdd_chpwd
+
+
+############################################################
+#
+# Develop
+#
+############################################################
+
+#ruby
+eval "$(rbenv init - zsh)"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="/usr/local/Cellar/postgresql/9.3.4/bin:$PATH"
+
+#python
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+#php
+#export PATH="$HOME/.phpenv/bin:$PATH"
+#eval "$(phpenv init -)"
+
+#golang
+if [ -x "`which go`" ]; then
+	export GOROOT=`go env GOROOT`
+	export GOPATH=$HOME/go
+	export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
+
+############################################################
+#
+# Alias
+#
+############################################################
+
+#rsync ssh
+alias rsync-ssh='rsync -e ssh -avh --progress'
+
+#ls color
+alias ls="ls -G"
+export LESS='-R'
+[ -f /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh ] && export LESSOPEN='| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s'
+
+figlet -f 3-d `uname`
