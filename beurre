@@ -236,6 +236,8 @@ check_args() {
 	fi
 
 	case "$1" in
+		"install" )
+			system_init ;;
 		"link" )
 			system_link ;;
 		"update" )
@@ -413,7 +415,7 @@ install_zplug() {
 		echo
 		e_header "Install Zplug"
 		echo
-		curl -sL zplug.sh/installer | zsh
+		curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
 		echo
 		e_done "Success install Zplug"
 		echo
