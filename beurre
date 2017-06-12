@@ -411,11 +411,13 @@ system_remove() {
 }
 
 install_zplug() {
-	if [ ! -e ~/.zplug ]; then
+	ZPLUGHOME=$HOME/.zplug
+	ZPLUGREPO="https://github.com/zplug/zplug"
+	if [ ! -e $ZPLUGHOME ]; then
 		echo
 		e_header "Install Zplug"
 		echo
-		curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+		git clone $ZPLUGREPO $ZPLUGHOME
 		echo
 		e_done "Success install Zplug"
 		echo
