@@ -5,6 +5,9 @@ zstyle ':completion::complete:*' use-cache true
 #zstyle ':completion:*:default' menu select true
 zstyle ':completion:*:default' menu select=1
 
+#history file
+export HISTFILE=$HOME/.zsh_history
+
 #大文字、小文字を区別せず補完する
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
@@ -254,7 +257,7 @@ function peco-history-selection() {
 			BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
 		;;
 		"Linux" )
-			BUFFER=`history -n 1 | tux  | awk '!a[$0]++' | peco`
+			BUFFER=`history -n 1 | tac | awk '!a[$0]++' | peco`
 		;;
 		esac
 	CURSOR=$#BUFFER
