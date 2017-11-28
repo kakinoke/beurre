@@ -19,6 +19,7 @@ set nobackup
 set undodir=/Users/yu/.undo
 set autoindent
 set smartindent
+set backspace=indent,eol,start
 let g:vimfiler_enable_auto_cd = 1
 
 " dein.vim
