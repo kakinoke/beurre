@@ -21,6 +21,7 @@ set autoindent
 set smartindent
 set backspace=indent,eol,start
 let g:vimfiler_enable_auto_cd = 1
+let g:deoplete#enable_at_startup = 1
 
 " dein.vim
 " initialize

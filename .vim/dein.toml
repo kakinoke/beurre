@@ -34,6 +34,18 @@ repo = 'Shougo/vimshell.vim'
 repo = 'Shougo/neocomplete.vim'
 
 [[plugins]]
+repo = 'Shougo/deoplete.nvim'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+
+[[plugins]]
 repo = 'tpope/vim-surround'
 
 [[plugins]]
