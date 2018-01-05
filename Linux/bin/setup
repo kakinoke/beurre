@@ -1,0 +1,14 @@
+#!/bin/sh
+
+install_linuxbrew() {
+	if [ ! -e /home/linuxbrew/.linuxbrew/bin/brew ]; then
+		echo
+		e_arrow "Install LinuxBrew"
+		echo
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+		echo
+		e_done "Success install LinuxBrew"
+	else
+		e_arrow "LinuxBrew...pass"
+	fi
+}

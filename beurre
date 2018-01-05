@@ -277,10 +277,16 @@ system_init() {
 
 		install_brew
 		install_cask
-
+		install_zplug
 	fi
 
-	install_zplug
+	if [ `uname` = "Linux" ]; then
+
+		. $BEURREPATH/Linux/bin/setup
+
+		install_linuxbrew
+
+	fi
 
 	system_link
 
