@@ -286,6 +286,9 @@ system_init() {
 
 		install_linuxbrew
 
+		git submodule init
+		git submodule update
+
 	fi
 
 	system_link
