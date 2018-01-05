@@ -1,1 +1,9 @@
 alias pbcopy='xsel --input --clipboard'
+
+BREW="/home/linuxbrew/.linuxbrew"
+export PATH="$BREW/bin:$PATH"
+export MANPATH="$BREW/share/man:$MANPATH"
+export INFOPATH="$BREW/share/info:$INFOPATH"
+export XDG_DATA_DIRS="$BREW/share:$XDG_DATA_DIRS"
+
+source ~/etc/mintty-colors-solarized/sol.dark
