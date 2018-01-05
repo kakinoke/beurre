@@ -7,3 +7,5 @@ export INFOPATH="$BREW/share/info:$INFOPATH"
 export XDG_DATA_DIRS="$BREW/share:$XDG_DATA_DIRS"
 
 source ~/etc/mintty-colors-solarized/sol.dark
+
+export DOCKER_HOST="tcp://0.0.0.0:2357"
