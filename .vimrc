@@ -21,7 +21,6 @@ set autoindent
 set smartindent
 set backspace=indent,eol,start
 let g:vimfiler_enable_auto_cd = 1
-let g:deoplete#enable_at_startup = 1
 
 " dein.vim
 " initialize
@@ -43,10 +42,11 @@ if dein#load_state(s:dein_dir)
 	let s:toml = '~/.vim/dein.toml'
 
 	call dein#begin(s:dein_dir)
-		call dein#load_toml(s:toml)
+	call dein#load_toml(s:toml)
 	call dein#end()
 
 	call dein#save_state()
+	let g:deoplete#enable_at_startup = 1
 
 endif
 
