@@ -35,8 +35,7 @@ install_cask() {
 	echo
 	if [ -e $BEURREPATH ]; then
 		cd "$BEURREPATH"/Darwin/lib
-		export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/Caskroom"
-		brew bundle
+		/bin/bash ./brewfile.sh
 		echo
 		e_done "Success install apps"
 	else
@@ -61,19 +60,8 @@ update_cask() {
 	cd "$BEURREPATH"/Dawrin/lib
 	echo
 	e_header "Update apps"
-	brew bundle
+	/bin/bash ./brewfile.sh
 	echo
 	e_done "Success update apps"
-	echo
-}
-
-dump() {
-	cd "$BEURREPATH"/Darwin/lib
-	echo
-	e_header "brew dump"
-	echo
-	brew bundle dump
-	echo
-	e_done "Success dump"
 	echo
 }
