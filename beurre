@@ -270,7 +270,6 @@ system_init() {
 			echo
 			e_done "Success Xcode Comand line tools"
 			echo
-			:
 		else
 			echo
 			echo "Install again Xcode Command line tools"
