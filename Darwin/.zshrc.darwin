@@ -121,4 +121,12 @@ alias ls="ls -G"
 export LESS='-R'
 [ -f /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh ] && export LESSOPEN='| /usr/local/Cellar/source-highlight/3.1.7/bin/src-hilite-lesspipe.sh %s'
 
-alias brewupdate='brew update && brew upgrade && brew cleanup'
+alias brewupdate='brew update && \
+									brew upgrade && \
+									brew cask upgrade && \
+									brew cleanup && \
+									brew cask cleanup'
+
+if type /usr/local/bin/mpsyt > /dev/null 2>&1; then
+	alias mps="/usr/local/bin/mpsyt"
+fi
