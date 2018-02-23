@@ -264,9 +264,19 @@ system_init() {
 		sudo /usr/bin/xcode-select --install
 		sudo /usr/bin/xcode-select --switch /Library/Developer/CommandLineTools
 		echo
-		e_done "Success Xcode Comand line tools"
-		echo
-
+		echo "Do you install Xcode Command line tools?(y/n)"
+		read answer
+		if [ $answer = "y" ]; then
+			echo
+			e_done "Success Xcode Comand line tools"
+			echo
+			:
+		else
+			echo
+			echo "Install again Xcode Command line tools"
+			echo
+			exit 1
+		fi
 	fi
 
 	system_download
