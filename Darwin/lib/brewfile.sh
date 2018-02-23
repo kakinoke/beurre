@@ -17,8 +17,9 @@ CUIAPPS=(\
 
 GUIAPPS=(\
 	alfred \
-	dropbox \
 	google-chrome \
+	google-backup-and-sync \
+	dash3 \
 	appcleaner \
 	iterm2 \
 	adobe-creative-cloud \
