@@ -22,6 +22,10 @@ set smartindent
 set backspace=indent,eol,start
 let g:vimfiler_enable_auto_cd = 1
 
+"Change ESC
+imap <C-j> <esc>
+noremap! <C-j> <esc>
+
 " dein.vim
 " initialize
 let s:dein_dir = expand('~/.vim/dein')
@@ -40,13 +44,13 @@ execute 'set runtimepath^=' . s:dein_repo
 if dein#load_state(s:dein_dir)
 
 	let s:toml = '~/.vim/dein.toml'
+	let g:deoplete#enable_at_startup = 1
 
 	call dein#begin(s:dein_dir)
 	call dein#load_toml(s:toml)
 	call dein#end()
 
 	call dein#save_state()
-	let g:deoplete#enable_at_startup = 1
 
 endif
 
