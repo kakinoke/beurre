@@ -163,8 +163,7 @@ export LESS='-R'
 alias brewupdate='brew update && \
 									brew upgrade && \
 									brew cask upgrade && \
-									brew cleanup && \
-									brew cask cleanup'
+									brew cleanup'
 
 if type /usr/local/bin/mpsyt > /dev/null 2>&1; then
 	alias mps="/usr/local/bin/mpsyt"
