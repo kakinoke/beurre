@@ -277,4 +277,3 @@ source $BEURREPATH
 [ -f ~/.zshrc.zplug ] && source ~/.zshrc.zplug
 
 [ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux
-

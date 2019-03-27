@@ -12,7 +12,6 @@ CUIAPPS=(\
 	fzf \
 	node \
 	mpv \
-	w3m \
 )
 
 GUIAPPS=(\
