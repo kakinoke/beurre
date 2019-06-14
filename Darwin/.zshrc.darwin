@@ -24,8 +24,8 @@ export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:$PATH
 #export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/Caskroom"
 alias app="brew cask"
 
-#nodebrew
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+#nodenv
+eval "$(nodenv init -)"
 
 
 ############################################################
@@ -47,9 +47,9 @@ alias androidrestore='adb restore'
 ############################################################
 
 #MacVim
-#export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 #alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-#alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 #case ${OSTYPE} in
 #	darwin*) # Mac OS X
 #		function macvim () {

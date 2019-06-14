@@ -15,5 +15,5 @@ set columns=150
 set lines=68
 set background=dark
 colorscheme solarized
-set guifont=Ricty:h16
+set guifont=Ricty\ Diminished:h16
 let g:vimfiler_enable_auto_cd = 1
