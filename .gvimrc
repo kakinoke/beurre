@@ -13,6 +13,7 @@ set visualbell t_vb=
 set nowrapscan
 set columns=150
 set lines=68
+syntax enable
 set background=dark
 colorscheme solarized
 set guifont=Ricty\ Diminished:h16

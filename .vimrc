@@ -21,6 +21,7 @@ set autoindent
 set smartindent
 set backspace=indent,eol,start
 let g:vimfiler_enable_auto_cd = 1
+set background=dark
 
 "Change ESC
 imap <C-j> <esc>
