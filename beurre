@@ -262,6 +262,16 @@ system_init() {
 		echo
 		e_arrow "Install Xcode Command line tools"
 		sudo /usr/bin/xcode-select --install
+
+		read -p "Did you install XCode? (y/N): " answer
+		case $answer in
+			"y" ) echo "...OK" ;;
+			"Y" ) echo "...OK" ;;
+			"n" ) exit ;;
+			"N" ) exit
+			break;;
+		esac
+
 		sudo /usr/bin/xcode-select --switch /Library/Developer/CommandLineTools
 		echo
 		echo "Install again Xcode Command line tools"
