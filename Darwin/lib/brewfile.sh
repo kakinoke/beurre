@@ -11,13 +11,12 @@ CUIAPPS=(\
 	peco \
 	fzf \
 	node \
-	mpv \
 )
 
 GUIAPPS=(\
 	alfred \
+	clipy \
 	google-chrome \
-	google-backup-and-sync \
 	dash3 \
 	appcleaner \
 	iterm2 \
