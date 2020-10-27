@@ -1,22 +1,26 @@
-#source ~/.zplug/init.zsh
+source ~/.zplug/init.zsh
 
-#zplug "b4b4r07/enhancd", use:init.sh
+zplug "b4b4r07/enhancd", use:init.sh
+zplug "momo-lab/zsh-abbrev-alias"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-autosuggestions"
 
 
 #initialize zplug
-#if ! zplug check --verbose; then
-#	printf "Install? [y/N]: "
-#	if read -q; then
-#		echo; zplug install
-#	fi
-#fi
+if ! zplug check --verbose; then
+	printf "Install? [y/N]: "
+	if read -q; then
+		echo; zplug install
+	fi
+fi
 
-#zplug load --verbose
+zplug load --verbose
 
-source "${HOME}/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-zinit load momo-lab/zsh-abbrev-alias # 略語を展開する
-zinit load zsh-users/zsh-syntax-highlighting # 実行可能なコマンドに色付け
-zinit load zsh-users/zsh-completions # 補完
-zinit load b4b4r07/enhancd
+#source "${HOME}/.zinit/bin/zinit.zsh"
+#autoload -Uz _zinit
+#(( ${+_comps} )) && _comps[zinit]=_zinit
+#zinit load momo-lab/zsh-abbrev-alias # 略語を展開する
+#zinit load zsh-users/zsh-syntax-highlighting # 実行可能なコマンドに色付け
+#zinit load zsh-users/zsh-completions # 補完
+#zinit load zsh-users/zsh-autosuggestions
+#zinit load b4b4r07/enhancd
