@@ -26,7 +26,7 @@ GUIAPPS=(\
 
 for i in "${CUIAPPS[@]}"
 do
-	if [ ! `brew list | grep "$i"` ]; then
+	if [ ! `brew list --formula| grep "$i"` ]; then
 		brew install "$i" || true
 	else
 		echo "Already installed $i"
@@ -35,8 +35,8 @@ done
 
 for i in "${GUIAPPS[@]}"
 do
-	if [ ! `brew cask list | grep "$i"` ]; then
-		brew cask install "$i" || true
+	if [ ! `brew list --cask | grep "$i"` ]; then
+		brew install --cask "$i" || true
 	else
 		echo "Already installed $i"
 	fi
