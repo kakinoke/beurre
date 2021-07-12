@@ -24,7 +24,7 @@ path=(
 ############################################################
 
 #brew
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:$PATH
+#export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:$PATH
 
 #brewcask
 #export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/Caskroom"
