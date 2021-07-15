@@ -457,11 +457,13 @@ install_prezto() {
         git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
         setopt EXTENDED_GLOB
-        for rcfile in ${ZDOTDIR:-$HOME}/.zprezto/runcoms/^README.md(.N)
+        for rcfile in ${ZDOTDIR:-$HOME}/.zprezto/runcoms/*
         do
-            ln -s $rcfile ${ZDOTDIR:-$HOME}/.${rcfile:t}
+            if [ $rcfile != ${ZDOTDIR:-$HOME}/.zprezto/runcoms/README.md ]; then
+                echo $rcfile
+                ln -s $rcfile ${ZDOTDIR:-$HOME}/.${rcfile:t}
+            fi
         done
-        rm -rf $HOME/.zshrc
     else
         e_arrow "prezto...pass"
     fi
