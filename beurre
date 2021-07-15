@@ -326,6 +326,8 @@ system_download() {
 
 
 link_core() {
+    install_prezto
+
 	cd "$BEURREPATH"
 	for f in .??*
 	do
@@ -443,6 +445,27 @@ install_zplug() {
 		e_arrow "zplug...pass"
 	fi
 }
+
+install_prezto() {
+
+    if [ ! -e $HOME/.zprezto ]; then
+    
+        echo
+        e_header "Install prezto"
+        echo
+
+        git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+        setopt EXTENDED_GLOB
+        for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+            ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+        done
+        rm -rf $HOME/.zshrc
+    else
+        e_arrow "prezto...pass"
+    fi
+}
+
 
 install_tools() {
 	if type node > /dev/null 2>&1; then

@@ -1,5 +1,18 @@
 source ~/.zplug/init.zsh
 
+source ~/.zprezto/init.zsh
+
+zplug "sorin-ionescu/prezto"
+zplug "modules/environment", from:prezto
+zplug "modules/terminal", from:prezto
+zplug "modules/editor", from:prezto
+zplug "modules/history", from:prezto
+zplug "modules/directory", from:prezto
+zplug "modules/spectrum", from:prezto
+zplug "modules/completion", from:prezto
+zplug "modules/prompt", from:prezto
+zplug "modules/git", from:prezto
+
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "momo-lab/zsh-abbrev-alias"
 zplug "zsh-users/zsh-syntax-highlighting"
@@ -24,3 +37,6 @@ zplug load --verbose
 #zinit load zsh-users/zsh-completions # 補完
 #zinit load zsh-users/zsh-autosuggestions
 #zinit load b4b4r07/enhancd
+#
+promptinit
+prompt paradox
