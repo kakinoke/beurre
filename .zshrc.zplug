@@ -39,4 +39,4 @@ zplug load --verbose
 #zinit load b4b4r07/enhancd
 #
 promptinit
-prompt paradox
+prompt powerlevel10k

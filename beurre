@@ -355,6 +355,11 @@ link_os() {
 	done
 }
 
+link_nvim() {
+    cd "$BEUREPATH"
+    ln -s "$BEURREPATH/nvim" "$HOME/.config/nvim" 
+}
+
 system_link() {
 	echo
 	e_header "System linking..."

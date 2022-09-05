@@ -6,12 +6,6 @@ export MANPATH="$BREW/share/man:$MANPATH"
 export INFOPATH="$BREW/share/info:$INFOPATH"
 export XDG_DATA_DIRS="$BREW/share:$XDG_DATA_DIRS"
 
-source ~/.beurre/Linux/etc/mintty-colors-solarized/sol.dark
-
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
-#export DISPLAY=:0.0
-export LIBGL_ALWAYS_INDIRECT=1
-
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"

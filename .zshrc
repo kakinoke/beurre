@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #補完機能を使用する
 autoload -U compinit promptinit
 compinit
@@ -264,8 +271,7 @@ function peco-history-selection() {
 	zle reset-prompt
 }
 
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
+
 
 BEURREPATH="$HOME/.beurre"
 source $BEURREPATH
@@ -277,6 +283,9 @@ source $BEURREPATH
 [ -f ~/.zshrc.zplug ] && source ~/.zshrc.zplug
 
 [ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
 
 ### Added by Zinit's installer
 #if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -291,3 +300,8 @@ source $BEURREPATH
 #autoload -Uz _zinit
 #(( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+alias ll='ls -l'
