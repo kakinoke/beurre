@@ -3,15 +3,21 @@ shell:
 
 window:
   dimensions:
-    columns: 140
-    lines: 45
+    columns: 120
+    lines: 30
+  opacity: 0.9
+
 
   padding:
-    x: 10
+    x: 2
     y: 10
 
 font:
   size: 15
+
+  offset:
+    y: 2
+
   normal:
     family: 'HackGen Console NF'
     style: Regular
